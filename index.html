@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Open Library Search</title>
+	<title>Personal library</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<h1>Open Library Search</h1>
+	<h1>A book by it's cover</h1>
 	<form id="search-form">
 		<label for="search-query">Search for books:</label>
 		<input type="text" id="search-query" name="search-query">
 		<button type="submit">Search</button>
 	</form>
 	<div id="results"></div>
+  <div id="results">
+  </div>
+  
+  <div id="library" class="library">
+    <h2>My Library</h2>
+    <div id="library-books" class="books"></div>
+  </div>
 	<script src="script.js"></script>
 </body>
 </html>

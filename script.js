@@ -1,5 +1,6 @@
 const form = document.getElementById('search-form');
 const resultsDiv = document.getElementById('results');
+const libraryBooksDiv = document.getElementById('library-books');
 
 form.addEventListener('submit', event => {
   event.preventDefault();
@@ -19,21 +20,9 @@ function searchBooks(query) {
         isbn: book.isbn?.[0] || '',
         publishYear: book.first_publish_year || '',
       }));
-      saveResults(results);
       displayResults(results);
     })
     .catch(error => console.log(error));
-}
-
-function saveResults(results) {
-  const data = { results };
-  const jsonData = JSON.stringify(data);
-  localStorage.setItem('searchResults', jsonData);
-}
-
-function getResults() {
-  const jsonData = localStorage.getItem('searchResults');
-  return JSON.parse(jsonData)?.results || [];
 }
 
 function displayResults(results) {
@@ -65,6 +54,7 @@ function displayResults(results) {
     addBtn.addEventListener('click', () => {
       addBookToLibrary(book);
       alert(`${book.title} has been added to your library!`);
+      displayLibrary();
     });
 
     article.appendChild(coverImg);
@@ -77,26 +67,3 @@ function displayResults(results) {
   resultsDiv.appendChild(fragment);
 }
 
-function addBookToLibrary(book) {
-  const url = 'db.json';
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      data.books.push(book);
-      const jsonData = JSON.stringify(data);
-      return fetch(url, {
-        method: 'PUT',
-        body: jsonData,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-    })
-    .then(() => console.log(`${book.title} has been added to your library!`))
-    .catch(error => console.log(error));
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  const results = getResults();
-  displayResults(results);
-});
