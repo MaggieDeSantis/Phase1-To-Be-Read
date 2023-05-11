@@ -1,0 +1,45 @@
+{
+    "books": [
+      {
+        "id": 1,
+        "title": "The Stand",
+        "author": "Stephen King",
+        "year_published": 1978,
+        "cover_image": "https://covers.openlibrary.org/b/id/2368645-M.jpg",
+        "genre": "Horror"      
+      },
+      {
+        "id": 2,
+        "title": "The Deep",
+        "author": "Nick Cutter",
+        "year_published": 2015,
+        "cover_image": "https://covers.openlibrary.org/b/id/2569039-M.jpg",
+        "genre": "Horror"      
+      },
+      {
+        "id": 3,
+        "title": "1984",
+        "author": "George Orwell",
+        "year_published": 1949,
+        "cover_image": "https://covers.openlibrary.org/b/id/7222246-M.jpg",
+        "genre": "Science Fiction"        
+      },
+      {
+        "id": 4,
+        "title": "The Hitchhiker's Guide to the Galaxy",
+        "author": "Douglas Adams",
+        "year_published": 1979,
+        "cover_image": "https://covers.openlibrary.org/b/id/4718024-M.jpg",
+        "genre": "Science Fiction"        
+      },
+      {
+        "id": 5,
+        "title": "The Catcher in the Rye",
+        "author": "J.D. Salinger",
+        "year_published": 1951,
+        "cover_image": "https://covers.openlibrary.org/b/id/4443056-M.jpg",
+        "genre": "Classic Fiction"     
+      }
+    ]
+  }
+  
