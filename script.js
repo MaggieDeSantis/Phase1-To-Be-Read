@@ -13,7 +13,11 @@ function searchBooks(query) {
     .then(response => response.json())
     .then(data => {
       const results = data.docs.slice(0, 10).map(book => ({
-        coverUrl: `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
+        title: book.title,
+        author: book.author_name?.[0] || 'Unknown Author',
+        coverUrl: `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`,
+        isbn: book.isbn?.[0] || '',
+        publishYear: book.first_publish_year || '',
       }));
       saveResults(results);
       displayResults(results);
@@ -50,11 +54,46 @@ function displayResults(results) {
     coverImg.src = book.coverUrl;
     coverImg.alt = 'Book cover';
 
+    const title = document.createElement('h2');
+    title.textContent = book.title;
+
+    const author = document.createElement('p');
+    author.textContent = `by ${book.author}`;
+
+    const addBtn = document.createElement('button');
+    addBtn.textContent = 'Add to Library';
+    addBtn.addEventListener('click', () => {
+      addBookToLibrary(book);
+      alert(`${book.title} has been added to your library!`);
+    });
+
     article.appendChild(coverImg);
+    article.appendChild(title);
+    article.appendChild(author);
+    article.appendChild(addBtn);
     fragment.appendChild(article);
   });
 
   resultsDiv.appendChild(fragment);
+}
+
+function addBookToLibrary(book) {
+  const url = 'db.json';
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      data.books.push(book);
+      const jsonData = JSON.stringify(data);
+      return fetch(url, {
+        method: 'PUT',
+        body: jsonData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    })
+    .then(() => console.log(`${book.title} has been added to your library!`))
+    .catch(error => console.log(error));
 }
 
 window.addEventListener('DOMContentLoaded', () => {
