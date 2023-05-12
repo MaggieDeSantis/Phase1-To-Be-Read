@@ -36,14 +36,8 @@ form {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-#results::-webkit-scrollbar {
-  display: none;
+  scrollbar-width: 95%;
 }
 
 .book {
