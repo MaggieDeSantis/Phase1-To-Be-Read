@@ -6,6 +6,32 @@ form {
   margin: 1rem;
 }
 
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  width: 70%;
+}
+
+.search-btn {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  background-color: #8db3db;
+  color: #fff;
+  cursor: pointer;
+}
+
+
 #results {
   display: flex;
   flex-wrap: nowrap;
@@ -27,4 +53,50 @@ form {
 
 .book img {
   max-width: 100%;
+}
+.results {
+  display: flex;
+  overflow-x: scroll;
+  margin: 20px;
+}
+.book {
+  margin-right: 20px;
+  max-width: 150px;
+  text-align: center;
+}
+
+.book img {
+  max-width: 100%;
+}
+
+/* Style for the personal library section */
+.library {
+  margin: 20px;
+}
+
+.books {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.book-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.book-info h3 {
+  margin: 0;
+}
+
+.remove-btn {
+  background-color: #dedede;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }

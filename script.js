@@ -1,69 +1,66 @@
 const form = document.getElementById('search-form');
+const input = document.getElementById('search-query');
 const resultsDiv = document.getElementById('results');
-const libraryBooksDiv = document.getElementById('library-books');
+const libraryDiv = document.getElementById('library-books');
 
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const query = document.getElementById('search-query').value;
-  searchBooks(query);
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  search(input.value);
 });
 
-function searchBooks(query) {
-  const url = `https://openlibrary.org/search.json?q=${query}`;
-  fetch(url)
+function search(query) {
+  resultsDiv.innerHTML = '';
+  fetch(`https://openlibrary.org/search.json?q=${query}`)
     .then(response => response.json())
-    .then(data => {
-      const results = data.docs.slice(0, 10).map(book => ({
-        title: book.title,
-        author: book.author_name?.[0] || 'Unknown Author',
-        coverUrl: `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`,
-        isbn: book.isbn?.[0] || '',
-        publishYear: book.first_publish_year || '',
-      }));
-      displayResults(results);
-    })
-    .catch(error => console.log(error));
+    .then(displayResults);
 }
 
-function displayResults(results) {
-  resultsDiv.innerHTML = '';
-
-  if (results.length === 0) {
-    resultsDiv.textContent = 'No results found.';
-    return;
-  }
-
-  const fragment = document.createDocumentFragment();
-
-  results.forEach(book => {
-    const article = document.createElement('article');
-    article.classList.add('book');
+function displayResults(data) {
+  const books = data.docs.filter(book => book.cover_i !== undefined && book.author_name !== undefined);
+  books.forEach(book => {
+    const bookDiv = document.createElement('div');
+    bookDiv.className = 'book';
 
     const coverImg = document.createElement('img');
-    coverImg.src = book.coverUrl;
-    coverImg.alt = 'Book cover';
+    coverImg.src = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+    coverImg.alt = `Cover for ${book.title}`;
 
-    const title = document.createElement('h2');
-    title.textContent = book.title;
+    const authorP = document.createElement('p');
+    authorP.textContent = `Author: ${book.author_name[0]}`;
 
-    const author = document.createElement('p');
-    author.textContent = `by ${book.author}`;
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add to library';
+    addButton.addEventListener('click', () => addToLibrary(book));
 
-    const addBtn = document.createElement('button');
-    addBtn.textContent = 'Add to Library';
-    addBtn.addEventListener('click', () => {
-      addBookToLibrary(book);
-      alert(`${book.title} has been added to your library!`);
-      displayLibrary();
-    });
-
-    article.appendChild(coverImg);
-    article.appendChild(title);
-    article.appendChild(author);
-    article.appendChild(addBtn);
-    fragment.appendChild(article);
+    bookDiv.appendChild(coverImg);
+    bookDiv.appendChild(authorP);
+    bookDiv.appendChild(addButton);
+    resultsDiv.appendChild(bookDiv);
   });
-
-  resultsDiv.appendChild(fragment);
 }
 
+function addToLibrary(book) {
+  const bookDiv = document.createElement('div');
+  bookDiv.className = 'book';
+
+  const coverImg = document.createElement('img');
+  coverImg.src = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+  coverImg.alt = `Cover for ${book.title}`;
+
+  const titleH3 = document.createElement('h3');
+  titleH3.textContent = book.title;
+
+  const authorP = document.createElement('p');
+  authorP.textContent = `Author: ${book.author_name[0]}`;
+
+  const removeButton = document.createElement('button');
+  removeButton.textContent = 'Remove';
+  removeButton.className = 'remove-btn';
+  removeButton.addEventListener('click', () => bookDiv.remove());
+
+  bookDiv.appendChild(coverImg);
+  bookDiv.appendChild(titleH3);
+  bookDiv.appendChild(authorP);
+  bookDiv.appendChild(removeButton);
+  libraryDiv.appendChild(bookDiv);
+}
