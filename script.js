@@ -2,6 +2,7 @@ const form = document.getElementById('search-form');
 const input = document.getElementById('search-query');
 const resultsDiv = document.getElementById('results');
 const libraryDiv = document.getElementById('library-books');
+const fragment = document.createDocumentFragment();
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -9,14 +10,17 @@ form.addEventListener('submit', (e) => {
 });
 
 function search(query) {
-  resultsDiv.innerHTML = '';
+  while (resultsDiv.firstChild) {
+    resultsDiv.removeChild(resultsDiv.firstChild);
+  }
+
   fetch(`https://openlibrary.org/search.json?q=${query}`)
     .then(response => response.json())
-    .then(displayResults);
+    .then(data => displayResults(data.docs));
 }
 
-function displayResults(data) {
-  const books = data.docs.filter(book => book.cover_i !== undefined && book.author_name !== undefined);
+function displayResults(books) {
+  books = books.filter(book => book.cover_i !== undefined && book.author_name !== undefined);
   books.forEach(book => {
     const bookDiv = document.createElement('div');
     bookDiv.className = 'book';
@@ -35,8 +39,10 @@ function displayResults(data) {
     bookDiv.appendChild(coverImg);
     bookDiv.appendChild(authorP);
     bookDiv.appendChild(addButton);
-    resultsDiv.appendChild(bookDiv);
+    fragment.appendChild(bookDiv);
   });
+
+  resultsDiv.appendChild(fragment);
 }
 
 function addToLibrary(book) {
