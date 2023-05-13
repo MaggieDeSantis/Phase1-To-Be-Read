@@ -29,15 +29,11 @@ function displayResults(books) {
     coverImg.src = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
     coverImg.alt = `Cover for ${book.title}`;
 
-    const authorP = document.createElement('p');
-    authorP.textContent = `Author: ${book.author_name[0]}`;
-
     const addButton = document.createElement('button');
     addButton.textContent = 'Add to library';
     addButton.addEventListener('click', () => addToLibrary(book));
 
     bookDiv.appendChild(coverImg);
-    bookDiv.appendChild(authorP);
     bookDiv.appendChild(addButton);
     fragment.appendChild(bookDiv);
   });

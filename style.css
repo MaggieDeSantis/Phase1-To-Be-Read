@@ -45,6 +45,11 @@ form {
   text-align: center;
 }
 
+.book-cover {
+  max-width: 200px;
+  max-height: 300px;
+}
+
 .book img {
   max-width: 100%;
 }
@@ -52,6 +57,10 @@ form {
   display: flex;
   overflow-x: scroll;
   margin: 20px;
+}
+.result-cover {
+  width: 150%;
+  height: 150%;
 }
 .book {
   margin-right: 20px;
@@ -75,7 +84,6 @@ form {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
 .book-info {
   display: flex;
   justify-content: space-between;
