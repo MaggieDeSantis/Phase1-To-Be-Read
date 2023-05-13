@@ -31,7 +31,6 @@ form {
   cursor: pointer;
 }
 
-
 #results {
   display: flex;
   flex-wrap: nowrap;
@@ -53,52 +52,19 @@ form {
 .book img {
   max-width: 100%;
 }
+
 .results {
   display: flex;
   overflow-x: scroll;
   margin: 20px;
 }
+
 .result-cover {
   width: 150%;
   height: 150%;
 }
-.book {
-  margin-right: 20px;
-  max-width: 150px;
-  text-align: center;
-}
-
-.book img {
-  max-width: 100%;
-}
-
-/* Style for the personal library section */
-.library {
-  margin: 20px;
-}
-
-.books {
+#library-books {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.book-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.book-info h3 {
-  margin: 0;
-}
-
-.remove-btn {
-  background-color: #dedede;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
+  overflow-x: flex;
+  white-space: nowrap;
 }
