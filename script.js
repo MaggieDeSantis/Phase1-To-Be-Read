@@ -21,7 +21,7 @@ const displayResults = (books) => {
     bookCover.classList.add('book-cover');
 
     const bookImage = document.createElement('img');
-    bookImage.src = book.volumeInfo.imageLinks.smallThumbnail;
+    bookImage.src = book.volumeInfo.imageLinks.thumbnail;
     bookImage.alt = book.volumeInfo.title;
 
     bookCover.appendChild(bookImage);
@@ -52,11 +52,16 @@ const displayBook = (book) => {
   const description = document.createElement('p');
   description.textContent = book.volumeInfo.description;
 
+  const rating = document.createElement('p');
+  rating.textContent = `Average Rating: ${book.volumeInfo.averageRating}`;
+
   bookDiv.appendChild(title);
   bookDiv.appendChild(author);
+  bookDiv.appendChild(rating);
   bookDiv.appendChild(publisher);
   bookDiv.appendChild(publishedDate);
   bookDiv.appendChild(description);
+  
 
   bookDescription.textContent = '';
   bookDescription.appendChild(bookDiv);
