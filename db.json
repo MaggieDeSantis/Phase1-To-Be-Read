@@ -1,40 +1,49 @@
 {
-    "books": [
+  "books": [
       {
-        "id": 1,
-        "title": "The Stand",
-        "author": "Stephen King",
-        "cover_image": "https://covers.openlibrary.org/b/id/2368645-M.jpg",
-        "genre": "Horror"      
+          "id": "1",
+          "title": "The Stand",
+          "author": "Stephen King",
+          "cover_image": "https://covers.openlibrary.org/b/id/2368645-M.jpg",
+          "genre": "Horror",
+          "page_count": 1168,
+          "description": "A pandemic has devastated the world, leaving only a few thousand people alive. The survivors are now divided into two groups: those who have been affected by the pandemic and have developed supernatural powers, and those who have not."
       },
       {
-        "id": 2,
-        "title": "The Deep",
-        "author": "Nick Cutter",
-        "cover_image": "https://covers.openlibrary.org/b/id/2569039-M.jpg",
-        "genre": "Horror"      
+          "id": "2",
+          "title": "The Deep",
+          "author": "Nick Cutter",
+          "cover_image": "https://covers.openlibrary.org/b/id/2569039-M.jpg",
+          "genre": "Horror",
+          "page_count": 400,
+          "description": "A team of scientists journey to the bottom of the ocean to explore a mysterious and deadly virus that has wiped out an entire research station. But as they descend deeper and deeper into the abyss, they begin to lose their grip on reality."
       },
       {
-        "id": 3,
-        "title": "1984",
-        "author": "George Orwell",
-        "cover_image": "https://covers.openlibrary.org/b/id/7222246-M.jpg",
-        "genre": "Science Fiction"        
+          "id": "3",
+          "title": "1984",
+          "author": "George Orwell",
+          "cover_image": "https://covers.openlibrary.org/b/id/7222246-M.jpg",
+          "genre": "Science Fiction",
+          "page_count": 328,
+          "description": "In a dystopian future, the government has total control over every aspect of citizens' lives. Winston Smith, a member of the ruling Party, begins to rebel against the oppressive regime and falls in love with a fellow rebel."
       },
       {
-        "id": 4,
-        "title": "The Hitchhiker's Guide to the Galaxy",
-        "author": "Douglas Adams",
-        "cover_image": "https://covers.openlibrary.org/b/id/4718024-M.jpg",
-        "genre": "Science Fiction"        
+          "id": "4",
+          "title": "The Hitchhiker's Guide to the Galaxy",
+          "author": "Douglas Adams",
+          "cover_image": "https://covers.openlibrary.org/b/id/4718024-M.jpg",
+          "genre": "Science Fiction",
+          "page_count": 215,
+          "description": "Arthur Dent is whisked away from Earth moments before it is destroyed to make way for a hyperspace bypass. He sets off on a series of adventures across the galaxy with his alien friend Ford Prefect and the two-headed, three-armed ex-president of the galaxy, Zaphod Beeblebrox."
       },
       {
-        "id": 5,
-        "title": "The Catcher in the Rye",
-        "author": "J.D. Salinger",
-        "cover_image": "https://covers.openlibrary.org/b/id/4443056-M.jpg",
-        "genre": "Classic Fiction"     
+          "id": "5",
+          "title": "The Catcher in the Rye",
+          "author": "J.D. Salinger",
+          "cover_image": "https://covers.openlibrary.org/b/id/4443056-M.jpg",
+          "genre": "Classic Fiction",
+          "page_count": 224,
+          "description": "Holden Caulfield, a teenage boy from New York, is expelled from his school and sets out on a journey of self-discovery. Along the way, he meets a cast of characters that force him to confront the complexities of adulthood."
       }
-    ]
-  }
-  
+  ]
+}
