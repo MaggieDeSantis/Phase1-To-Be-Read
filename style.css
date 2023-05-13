@@ -6,6 +6,14 @@ form {
   margin: 1rem;
 }
 
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
 .search-form {
   display: flex;
   justify-content: center;
@@ -37,7 +45,10 @@ form {
   overflow-x: scroll;
   scroll-behavior: smooth;
   scrollbar-width: 95%;
+  width: 80%;
+  margin: auto;
 }
+
 
 .book {
   margin: 1rem;
@@ -63,8 +74,15 @@ form {
   width: 150%;
   height: 150%;
 }
+
+#library {
+  width: 80%;
+  margin: auto;
+  max-height: 80%;
+}
+
 #library-books {
   display: flex;
-  overflow-x: flex;
+  overflow-x: scroll;
   white-space: nowrap;
 }
