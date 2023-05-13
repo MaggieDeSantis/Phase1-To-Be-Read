@@ -1,41 +1,35 @@
 body {
   font-family: sans-serif;
+  margin: 0;
 }
 
-form {
-  margin: 1rem;
-}
-
-h1 {
+h1, h2 {
   text-align: center;
 }
 
-h2 {
-  text-align: center;
-}
-
-.search-form {
+#search-form {
   display: flex;
   justify-content: center;
-  align-items: center;
   margin: 20px;
+  
 }
 
-.search-input {
+#search-query {
   padding: 10px;
   font-size: 16px;
   border: none;
   border-radius: 5px 0 0 5px;
   width: 70%;
+  background-color: #decaa6
 }
 
-.search-btn {
+ #submit {
   padding: 10px;
   font-size: 16px;
-  border: none;
+  border: 1px;
   border-radius: 0 5px 5px 0;
-  background-color: #8db3db;
-  color: #fff;
+  background-color: #032a54;
+  color: black;
   cursor: pointer;
 }
 
@@ -78,7 +72,10 @@ h2 {
 #library {
   width: 80%;
   margin: auto;
-  max-height: 80%;
+}
+
+#library h2 {
+  text-align: center;
 }
 
 #library-books {
