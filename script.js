@@ -53,19 +53,28 @@ const displayBook = (book) => {
   description.textContent = book.volumeInfo.description;
 
   const rating = document.createElement('p');
-  rating.textContent = `Average Rating: ${book.volumeInfo.averageRating}`;
+  rating.textContent = `Rating: ${book.volumeInfo.averageRating}/5`;
+
+  const addToLibraryLink = document.createElement('a');
+  addToLibraryLink.textContent = 'Add to Library';
+  addToLibraryLink.href = '#';
+  addToLibraryLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    addBookToLibrary(book);
+  });
 
   bookDiv.appendChild(title);
   bookDiv.appendChild(author);
-  bookDiv.appendChild(rating);
   bookDiv.appendChild(publisher);
   bookDiv.appendChild(publishedDate);
   bookDiv.appendChild(description);
-  
+  bookDiv.appendChild(rating);
+  bookDiv.appendChild(addToLibraryLink);
 
   bookDescription.textContent = '';
   bookDescription.appendChild(bookDiv);
 };
+
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -105,3 +114,30 @@ resultsSection.addEventListener('click', (e) => {
       });
   }
 });
+const addBookToLibrary = (bookData) => {
+  const library = document.querySelector('#library-books');
+  const bookCover = document.createElement('div');
+  bookCover.classList.add('book-cover');
+
+  const bookImage = document.createElement('img');
+  bookImage.src = bookData.volumeInfo.imageLinks.thumbnail;
+  bookImage.alt = bookData.volumeInfo.title;
+  bookCover.appendChild(bookImage);
+
+  const bookTitle = document.createElement('h3');
+  bookTitle.textContent = bookData.volumeInfo.title;
+  bookCover.appendChild(bookTitle);
+
+  const removeButton = document.createElement('button');
+  removeButton.textContent = 'Remove';
+  removeButton.classList.add('remove-button');
+  removeButton.addEventListener('click', () => {
+    bookCover.remove();
+    removeBookFromLibrary(bookData.id);
+  });
+  bookCover.appendChild(removeButton);
+
+  library.appendChild(bookCover);
+
+  saveBookToLibrary(bookData);
+};
