@@ -62,7 +62,6 @@ const displayBook = (book) => {
   bookDescription.appendChild(bookDiv);
 };
 
-// Event listener for search form submission
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const searchTerm = searchInput.value;
@@ -85,7 +84,6 @@ form.addEventListener('submit', (e) => {
     });
 });
 
-// Event listener for book click
 resultsSection.addEventListener('click', (e) => {
   if (e.target.closest('.book')) {
     const book = e.target.closest('.book');
