@@ -1,4 +1,29 @@
 body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+#search-form {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  
+}
+
+#search-query {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  width: 70%;
+  background-color: #decaa6
+}
+
+body {
   font-family: sans-serif;
   margin: 0;
 }
@@ -23,13 +48,12 @@ h1, h2 {
   background-color: #decaa6
 }
 
- #submit {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px;
-  border-radius: 0 5px 5px 0;
-  background-color: #032a54;
-  color: black;
+button[type="submit"] {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0 0.25rem 0.25rem 0;
+  background-color: #b4510b;
+  color: #000000;
   cursor: pointer;
 }
 
@@ -82,4 +106,54 @@ h1, h2 {
   display: flex;
   overflow-x: scroll;
   white-space: nowrap;
+}
+
+
+#results {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: 95%;
+  width: 80%;
+  margin: auto;
+}
+
+
+.book {
+  margin: 1rem;
+  text-align: center;
+}
+
+.book-cover {
+  max-width: 200px;
+  max-height: 300px;
+}
+
+.book img {
+  max-width: 100%;
+}
+
+.results {
+  display: flex;
+  overflow-x: scroll;
+  margin: 20px;
+}
+
+.result-cover {
+  width: 150%;
+  height: 150%;
+}
+
+#library h2 {
+  text-align: center;
+}
+
+#library-books {
+  display: flex;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+table {
+  width: 80%;
 }
