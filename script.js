@@ -1,127 +1,104 @@
-const form = document.getElementById('search-form');
-const input = document.getElementById('search-query');
-const resultsDiv = document.getElementById('results');
-const libraryDiv = document.getElementById('library-books');
-const fragment = document.createDocumentFragment();
+const form = document.querySelector('#search-form');
+const searchInput = document.querySelector('#search-query');
+const resultsSection = document.querySelector('#results');
+const librarySection = document.querySelector('#library-books');
 
-const infoDiv = document.createElement('div');
-infoDiv.id = 'info';
-resultsDiv.parentNode.insertBefore(infoDiv, resultsDiv.nextSibling);
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  search(input.value);
-});
-
-function search(query) {
-  while (resultsDiv.firstChild) {
-    resultsDiv.removeChild(resultsDiv.firstChild);
-  }
-
-  fetch(`https://openlibrary.org/search.json?q=${query}`)
-    .then(response => response.json())
-    .then(data => displayResults(data.docs));
+// Function to clear results and books
+const clearResults = () => {
+  resultsSection.textContent = '';
+  librarySection.textContent = '';
 }
 
-function displayResults(books) {
-  books = books.filter(book => book.cover_i !== undefined && book.author_name !== undefined);
-  books.forEach(book => {
+// Function to display book results
+const displayResults = (books) => {
+  const fragment = document.createDocumentFragment();
+
+  books.forEach((book) => {
     const bookDiv = document.createElement('div');
-    bookDiv.className = 'book';
+    bookDiv.classList.add('book');
 
-    const coverImg = document.createElement('img');
-    coverImg.src = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
-    coverImg.alt = `Cover for ${book.title}`;
+    const bookCover = document.createElement('div');
+    bookCover.classList.add('book-cover');
 
-    const addButton = document.createElement('button');
-    addButton.textContent = 'Add to library';
-    addButton.addEventListener('click', () => addToLibrary(book));
+    const bookImage = document.createElement('img');
+    bookImage.src = book.volumeInfo.imageLinks.smallThumbnail;
+    bookImage.alt = book.volumeInfo.title;
 
-    const bookInfoDiv = document.createElement('div');
-    bookInfoDiv.className = 'book-info';
-    bookInfoDiv.style.display = 'none';
-
-    const titleH3 = document.createElement('h3');
-    titleH3.textContent = book.title;
-
-    const authorP = document.createElement('p');
-    authorP.textContent = `Author: ${book.author_name[0]}`;
-
-    const descriptionP = document.createElement('p');
-    descriptionP.textContent = book.description ? book.description.value : '';
-
-    bookInfoDiv.appendChild(titleH3);
-    bookInfoDiv.appendChild(authorP);
-    bookInfoDiv.appendChild(descriptionP);
-
-    bookDiv.appendChild(coverImg);
-    bookDiv.appendChild(addButton);
-    bookDiv.appendChild(bookInfoDiv);
+    bookCover.appendChild(bookImage);
+    bookDiv.appendChild(bookCover);
     fragment.appendChild(bookDiv);
   });
 
-  resultsDiv.appendChild(fragment);
+  resultsSection.appendChild(fragment);
+};
 
-  const coverImgs = document.querySelectorAll('.book img');
-  const descriptionDiv = document.createElement('div');
-  descriptionDiv.className = 'description';
-  descriptionDiv.style.display = 'none';
-  resultsDiv.parentNode.insertBefore(descriptionDiv, libraryDiv);
-
-  coverImgs.forEach((coverImg) => {
-    coverImg.addEventListener('click', () => {
-      descriptionDiv.innerHTML = '';
-      const descriptionH3 = document.createElement('h3');
-      descriptionH3.textContent = book.title;
-      const descriptionP = document.createElement('p');
-      descriptionP.textContent = book.description ? book.description.value : 'No description available';
-      descriptionDiv.appendChild(descriptionH3);
-      descriptionDiv.appendChild(descriptionP);
-      if (descriptionDiv.style.display === 'none') {
-        descriptionDiv.style.display = 'block';
-      } else {
-        descriptionDiv.style.display = 'none';
-      }
-    });
-  });
-}
-
-function addToLibrary(book) {
+// Function to display book details
+const displayBook = (book) => {
+  const bookDescription = document.querySelector('#book-description');
   const bookDiv = document.createElement('div');
-  bookDiv.className = 'book';
 
-  const coverImg = document.createElement('img');
-  coverImg.src = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
-  coverImg.alt = `Cover for ${book.title}`;
+  const title = document.createElement('h2');
+  title.textContent = book.volumeInfo.title;
 
-  const titleH3 = document.createElement('h3');
-  titleH3.textContent = book.title;
+  const author = document.createElement('p');
+  author.textContent = `Author(s): ${book.volumeInfo.authors.join(', ')}`;
 
-  const authorP = document.createElement('p');
-  authorP.textContent = `Author: ${book.author_name[0]}`;
+  const publisher = document.createElement('p');
+  publisher.textContent = `Publisher: ${book.volumeInfo.publisher}`;
 
-  const removeButton = document.createElement('button');
-  removeButton.textContent = 'Remove';
-  removeButton.className = 'remove-btn';
-  removeButton.addEventListener('click', () => bookDiv.remove());
+  const publishedDate = document.createElement('p');
+  publishedDate.textContent = `Published Date: ${book.volumeInfo.publishedDate}`;
 
-  const descriptionDiv = document.createElement('div');
-  descriptionDiv.className = 'book-description';
+  const description = document.createElement('p');
+  description.textContent = book.volumeInfo.description;
 
-  coverImg.addEventListener('click', () => {
-    descriptionDiv.innerHTML = '';
-    const descriptionH3 = document.createElement('h3');
-    descriptionH3.textContent = book.title;
-    const descriptionP = document.createElement('p');
-    descriptionP.textContent = book.description ? book.description.value : 'No description available';
-    descriptionDiv.appendChild(descriptionH3);
-    descriptionDiv.appendChild(descriptionP);
-  });
+  bookDiv.appendChild(title);
+  bookDiv.appendChild(author);
+  bookDiv.appendChild(publisher);
+  bookDiv.appendChild(publishedDate);
+  bookDiv.appendChild(description);
 
-  bookDiv.appendChild(coverImg);
-  bookDiv.appendChild(titleH3);
-  bookDiv.appendChild(authorP);
-  bookDiv.appendChild(removeButton);
-  bookDiv.appendChild(descriptionDiv);
-  libraryDiv.appendChild(bookDiv);
-}
+  bookDescription.textContent = '';
+  bookDescription.appendChild(bookDiv);
+};
+
+// Event listener for search form submission
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const searchTerm = searchInput.value;
+
+  if (!searchTerm) {
+    alert('Please enter a search term');
+    return;
+  }
+
+  clearResults();
+
+  fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const books = data.items;
+      displayResults(books);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
+// Event listener for book click
+resultsSection.addEventListener('click', (e) => {
+  if (e.target.closest('.book')) {
+    const book = e.target.closest('.book');
+    const bookId = book.querySelector('img').alt;
+
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const book = data.items[0];
+        displayBook(book);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+});
