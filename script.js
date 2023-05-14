@@ -6,7 +6,6 @@ const librarySection = document.querySelector('#library-books');
 // Function to clear results and books
 const clearResults = () => {
   resultsSection.textContent = '';
-  librarySection.textContent = '';
 }
 
 // Function to display book results
@@ -119,12 +118,23 @@ resultsSection.addEventListener('click', (e) => {
 
 const addBookToLibrary = (bookData) => {
   const library = document.querySelector('#library-books');
+
+// Check if the book is already in the library
+  const bookImageAlt = bookData.volumeInfo.title;
+  const existingBookImages = library.querySelectorAll('.book-cover img');
+  for (let i = 0; i < existingBookImages.length; i++) {
+    if (existingBookImages[i].alt === bookImageAlt) {
+      alert('This book is already in your library!');
+      return;
+    }
+  }
+
   const bookCover = document.createElement('div');
   bookCover.classList.add('book-cover');
 
   const bookImage = document.createElement('img');
   bookImage.src = bookData.volumeInfo.imageLinks.thumbnail;
-  bookImage.alt = bookData.volumeInfo.title;
+  bookImage.alt = bookImageAlt;
   bookCover.appendChild(bookImage);
 
   const bookTitle = document.createElement('h3');
@@ -172,54 +182,7 @@ const addBookToLibrary = (bookData) => {
     finishDateButton.style.display = 'none';
   });
 
-  const removeLink = document.createElement('a');
-  removeLink.href = '#';
-  removeLink.textContent = 'Remove from Library';
-  removeLink.addEventListener('click', () => {
-    bookCover.remove();
-    removeBookFromLibrary(bookData.id);
-  });
-  bookCover.appendChild(removeLink);
-
   library.appendChild(bookCover);
   readingInfo.appendChild(startDateButton);
   readingInfo.appendChild(finishDateButton);
-  saveBookToLibrary(bookData);
 };
-
-///save to JSON
-function saveToJSON() {
-  const libraryDiv = document.getElementById('library-div');
-  const books = [];
-  for (let i = 0; i < libraryDiv.children.length; i++) {
-    const book = libraryDiv.children[i];
-    books.push({
-      id: book.dataset.id,
-      title: book.querySelector('.book-title').textContent,
-      author: book.querySelector('.book-author').textContent,
-      cover_image: book.querySelector('.book-cover').src,
-      genre: book.querySelector('.book-genre').textContent,
-      page_count: book.querySelector('.book-pages').textContent,
-      description: book.querySelector('.book-description').textContent,
-      rating: book.querySelector('.book-rating').textContent
-    });
-  }
-  const data = { books };
-  const jsonData = JSON.stringify(data, null, 2);
-
-  fetch('/api/books', {
-    method: 'PUT',
-    body: jsonData,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => {
-    if (response.ok) {
-      console.log('Books saved to db.json file');
-    } else {
-      console.error('Error saving books to db.json file');
-    }
-  })
-  .catch(error => console.error(error));
-}

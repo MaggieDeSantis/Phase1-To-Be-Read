@@ -59,7 +59,7 @@ button[type="submit"] {
 }
 
 .book img {
-  max-width: 100%;
+  size-adjust: 200px; 
 }
 
 .results {
@@ -127,4 +127,7 @@ table {
 .date-container {
   display: flex;
   font-size: smaller;
+}
+.start-reading-button {
+  background-color: #d27d40;
 }
