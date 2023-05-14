@@ -56,6 +56,8 @@ const displayBook = (book) => {
   const rating = document.createElement('p');
   rating.textContent = `Rating: ${book.volumeInfo.averageRating}/5`;
 
+  //create option to add to library
+
   const addToLibraryButton = document.createElement('button');
   addToLibraryButton.textContent = 'Add to Library';
   addToLibraryButton.addEventListener('click', () => {
@@ -70,6 +72,16 @@ const displayBook = (book) => {
   bookDiv.appendChild(description);
   
   bookDiv.appendChild(addToLibraryButton);
+
+  const hideDescriptionLink = document.createElement('a');
+  hideDescriptionLink.textContent = 'Hide';
+  hideDescriptionLink.href = '#';
+  hideDescriptionLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    bookDescription.textContent = '';
+  });
+
+  bookDiv.appendChild(hideDescriptionLink);
 
   bookDescription.textContent = '';
   bookDescription.appendChild(bookDiv);
@@ -147,6 +159,8 @@ const addBookToLibrary = (bookData) => {
   readingInfo.style.flexDirection = 'column';
   bookCover.appendChild(readingInfo);
 
+  // create start reading button
+
   const startDateInfo = document.createElement('div');
   startDateInfo.classList.add('start-date-info');
   startDateInfo.style.display = 'none';
@@ -165,6 +179,8 @@ const addBookToLibrary = (bookData) => {
     startDateButton.style.display = 'none';
   });
 
+  // create finish reading button
+
   const finishDateInfo = document.createElement('div');
   finishDateInfo.classList.add('finish-date-info');
   finishDateInfo.style.display = 'none';
@@ -181,8 +197,32 @@ const addBookToLibrary = (bookData) => {
 
     finishDateButton.style.display = 'none';
   });
+// create remove book button
 
-  library.appendChild(bookCover);
-  readingInfo.appendChild(startDateButton);
-  readingInfo.appendChild(finishDateButton);
+const removeButton = document.createElement('button');
+removeButton.textContent = 'Remove Book';
+removeButton.classList.add('remove-button');
+removeButton.addEventListener('click', () => {
+  bookCover.remove();
+});
+
+const removeLink = document.createElement('a');
+removeLink.textContent = 'Remove Book';
+removeLink.href = '#';
+removeLink.classList.add('remove-link');
+removeLink.addEventListener('click', (event) => {
+  event.preventDefault();
+  bookCover.remove();
+});
+
+const removeBookWrapper = document.createElement('div');
+removeBookWrapper.classList.add('remove-book-wrapper');
+removeBookWrapper.appendChild(removeButton);
+
+
+readingInfo.appendChild(startDateButton);
+readingInfo.appendChild(finishDateButton);
+bookCover.appendChild(removeBookWrapper);
+
+library.appendChild(bookCover);
 };
