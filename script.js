@@ -132,6 +132,29 @@ const addBookToLibrary = (bookData) => {
   bookTitle.textContent = bookData.volumeInfo.title;
   bookCover.appendChild(bookTitle);
 
+//Create a "now reading" function 
+const startDateButton = document.createElement('button');
+  startDateButton.textContent = 'Start Reading';
+  startDateButton.classList.add('start-date-button');
+  startDateButton.addEventListener('click', () => {
+    const startDate = new Date().toISOString().slice(0, 10);
+    const startDateDisplay = document.createElement('p');
+    startDateDisplay.textContent = `Started Reading: ${startDate}`;
+    bookCover.appendChild(startDateDisplay);
+  });
+  bookCover.appendChild(startDateButton);
+
+  const finishDateButton = document.createElement('button');
+  finishDateButton.textContent = 'Finish Reading';
+  finishDateButton.classList.add('finish-date-button');
+  finishDateButton.addEventListener('click', () => {
+    const finishDate = new Date().toISOString().slice(0, 10);
+    const finishDateDisplay = document.createElement('p');
+    finishDateDisplay.textContent = `Finished Reading: ${finishDate}`;
+    bookCover.appendChild(finishDateDisplay);
+  });
+  bookCover.appendChild(finishDateButton);
+
   const removeButton = document.createElement('button');
   removeButton.textContent = 'Remove';
   removeButton.classList.add('remove-button');
@@ -141,50 +164,25 @@ const addBookToLibrary = (bookData) => {
   });
   bookCover.appendChild(removeButton);
 
+  bookCover.addEventListener('mouseover', () => {
+    const startDateDisplay = bookCover.querySelector('.start-date-display');
+    const finishDateDisplay = bookCover.querySelector('.finish-date-display');
+    if (startDateDisplay && finishDateDisplay) {
+      startDateDisplay.style.display = 'block';
+      finishDateDisplay.style.display = 'block';
+    }
+  });
+
+  bookCover.addEventListener('mouseout', () => {
+    const startDateDisplay = bookCover.querySelector('.start-date-display');
+    const finishDateDisplay = bookCover.querySelector('.finish-date-display');
+    if (startDateDisplay && finishDateDisplay) {
+      startDateDisplay.style.display = 'none';
+      finishDateDisplay.style.display = 'none';
+    }
+  });
+
   library.appendChild(bookCover);
 
   saveBookToLibrary(bookData);
-};
-// function to show book currently being read
-const displayCurrentlyReadingBook = (book) => {
-  const currentBookSection = document.querySelector('#current-book');
-
-  const bookCover = document.createElement('div');
-  bookCover.classList.add('book-cover');
-
-  const bookImage = document.createElement('img');
-  bookImage.src = book.volumeInfo.imageLinks.thumbnail;
-  bookImage.alt = book.volumeInfo.title;
-  bookCover.appendChild(bookImage);
-
-  const title = document.createElement('h3');
-  title.textContent = book.volumeInfo.title;
-  bookDetails.appendChild(title);
-
-  const author = document.createElement('p');
-  author.textContent = `Author(s): ${book.volumeInfo.authors.join(', ')}`;
-  bookDetails.appendChild(author);
-
-  const rating = document.createElement('p');
-  rating.textContent = `Rating: ${book.volumeInfo.averageRating}/5`;
-  bookDetails.appendChild(rating);
-
-  const startReadingButton = document.createElement('button');
-  startReadingButton.textContent = 'Start Reading';
-  startReadingButton.classList.add('start-reading-button');
-  startReadingButton.addEventListener('click', () => {
-    startReading(book);
-  });
-  bookDetails.appendChild(startReadingButton);
-
-  const finishReadingButton = document.createElement('button');
-  finishReadingButton.textContent = 'Finish Reading';
-  finishReadingButton.classList.add('finish-reading-button');
-  finishReadingButton.addEventListener('click', () => {
-    finishReading(book);
-  });
-  bookDetails.appendChild(finishReadingButton);
-
-  currentBookSection.textContent = '';
-  currentBookSection.appendChild(bookCover);
 };
