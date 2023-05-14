@@ -90,20 +90,20 @@ button[type="submit"] {
 
 #library {
   width: 80%;
-  overflow-x: hidden;
   margin: auto;
-
 }
 
 #library h2 {
   text-align: center;
 }
 
-#library-books {
+#library-books{
   display: flex;
-  overflow-x: scroll;
+  overflow-y: visible;
   white-space: nowrap;
   margin: auto;
+  height: fit-content;
+
 }
 
 table {
@@ -147,4 +147,7 @@ table {
   background-color: #d27d40;
   border-width: thin;
   border-color: #592602;
+}
+.remove-button {
+  background-color: #decaa6;
 }

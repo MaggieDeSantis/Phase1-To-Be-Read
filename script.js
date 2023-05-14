@@ -8,6 +8,28 @@ const clearResults = () => {
   resultsSection.textContent = '';
 }
 
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const searchTerm = searchInput.value;
+
+  if (!searchTerm) {
+    alert('Please enter a search!');
+    return;
+  }
+
+  clearResults();
+
+  fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const books = data.items;
+      displayResults(books);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
 // Function to display book results
 
 const displayResults = (books) => {
@@ -71,44 +93,21 @@ const displayBook = (book) => {
   bookDiv.appendChild(publishedDate);
   bookDiv.appendChild(description);
   
-  bookDiv.appendChild(addToLibraryButton);
-
-  const hideDescriptionLink = document.createElement('a');
-  hideDescriptionLink.textContent = 'Hide';
-  hideDescriptionLink.href = '#';
-  hideDescriptionLink.addEventListener('click', (e) => {
+  
+  const hideDescLink = document.createElement('a');
+  hideDescLink.textContent = 'Hide';
+  hideDescLink.href = '#';
+  hideDescLink.addEventListener('click', (e) => {
     e.preventDefault();
     bookDescription.textContent = '';
   });
-
-  bookDiv.appendChild(hideDescriptionLink);
+ 
+  bookDiv.appendChild(addToLibraryButton);
+  bookDiv.appendChild(hideDescLink);
 
   bookDescription.textContent = '';
   bookDescription.appendChild(bookDiv);
 };
-
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const searchTerm = searchInput.value;
-
-  if (!searchTerm) {
-    alert('Please enter a search!');
-    return;
-  }
-
-  clearResults();
-
-  fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`)
-    .then((response) => response.json())
-    .then((data) => {
-      const books = data.items;
-      displayResults(books);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-});
 
 resultsSection.addEventListener('click', (e) => {
   if (e.target.closest('.book')) {
@@ -205,24 +204,9 @@ removeButton.classList.add('remove-button');
 removeButton.addEventListener('click', () => {
   bookCover.remove();
 });
-
-const removeLink = document.createElement('a');
-removeLink.textContent = 'Remove Book';
-removeLink.href = '#';
-removeLink.classList.add('remove-link');
-removeLink.addEventListener('click', (event) => {
-  event.preventDefault();
-  bookCover.remove();
-});
-
-const removeBookWrapper = document.createElement('div');
-removeBookWrapper.classList.add('remove-book-wrapper');
-removeBookWrapper.appendChild(removeButton);
-
-
 readingInfo.appendChild(startDateButton);
 readingInfo.appendChild(finishDateButton);
-bookCover.appendChild(removeBookWrapper);
-
+readingInfo.appendChild(removeButton)
 library.appendChild(bookCover);
+;
 };
