@@ -186,3 +186,40 @@ const addBookToLibrary = (bookData) => {
   readingInfo.appendChild(finishDateButton);
   saveBookToLibrary(bookData);
 };
+
+///save to JSON
+function saveToJSON() {
+  const libraryDiv = document.getElementById('library-div');
+  const books = [];
+  for (let i = 0; i < libraryDiv.children.length; i++) {
+    const book = libraryDiv.children[i];
+    books.push({
+      id: book.dataset.id,
+      title: book.querySelector('.book-title').textContent,
+      author: book.querySelector('.book-author').textContent,
+      cover_image: book.querySelector('.book-cover').src,
+      genre: book.querySelector('.book-genre').textContent,
+      page_count: book.querySelector('.book-pages').textContent,
+      description: book.querySelector('.book-description').textContent,
+      rating: book.querySelector('.book-rating').textContent
+    });
+  }
+  const data = { books };
+  const jsonData = JSON.stringify(data, null, 2);
+
+  fetch('/api/books', {
+    method: 'PUT',
+    body: jsonData,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Books saved to db.json file');
+    } else {
+      console.error('Error saving books to db.json file');
+    }
+  })
+  .catch(error => console.error(error));
+}
