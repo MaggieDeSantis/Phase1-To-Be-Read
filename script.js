@@ -99,7 +99,7 @@ const displayBook = (book) => {
   hideDescLink.href = '#';
   hideDescLink.addEventListener('click', (e) => {
     e.preventDefault();
-    bookDescription.textContent = '';
+    bookDescription.textContent = ' ';
   });
  
   bookDiv.appendChild(addToLibraryButton);
