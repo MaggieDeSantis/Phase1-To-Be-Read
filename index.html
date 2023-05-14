@@ -6,15 +6,23 @@
 </head>
 <body>
   <h1>A book by its cover</h1>
-  <form id="search-form">
-    <input type="text" id="search-query" name="search-query" placeholder="Search for books...">
-    <button type="submit">Search</button>
-  </form>
-  <div id="results"></div>
-  <div id="book-description"></div>
-  <div id="library" class="library">
-    <h2>My Library</h2>
-    <div id="library-books" class="books"></div>
+  <div class="container">
+    <section class="sidebar">
+      <h2>Currently Reading</h2>
+      <div id="currently-reading"></div>
+    </section>
+    <section class="main">
+      <form id="search-form">
+        <input type="text" id="search-query" name="search-query" placeholder="Search for books...">
+        <button type="submit">Search</button>
+      </form>
+      <div id="results"></div>
+      <div id="book-description"></div>
+      <div id="library" class="library">
+        <h2>My Library</h2>
+        <div id="library-books" class="books"></div>
+      </div>
+    </section>
   </div>
 
   <script src="script.js"></script>
