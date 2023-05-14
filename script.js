@@ -57,21 +57,20 @@ const displayBook = (book) => {
   const rating = document.createElement('p');
   rating.textContent = `Rating: ${book.volumeInfo.averageRating}/5`;
 
-  const addToLibraryLink = document.createElement('a');
-  addToLibraryLink.textContent = 'Add to Library';
-  addToLibraryLink.href = '#';
-  addToLibraryLink.addEventListener('click', (e) => {
-    e.preventDefault();
+  const addToLibraryButton = document.createElement('button');
+  addToLibraryButton.textContent = 'Add to Library';
+  addToLibraryButton.addEventListener('click', () => {
     addBookToLibrary(book);
   });
 
   bookDiv.appendChild(title);
   bookDiv.appendChild(author);
+  bookDiv.appendChild(rating);
   bookDiv.appendChild(publisher);
   bookDiv.appendChild(publishedDate);
   bookDiv.appendChild(description);
-  bookDiv.appendChild(rating);
-  bookDiv.appendChild(addToLibraryLink);
+  
+  bookDiv.appendChild(addToLibraryButton);
 
   bookDescription.textContent = '';
   bookDescription.appendChild(bookDiv);
@@ -132,57 +131,58 @@ const addBookToLibrary = (bookData) => {
   bookTitle.textContent = bookData.volumeInfo.title;
   bookCover.appendChild(bookTitle);
 
-//Create a "now reading" function 
-const startDateButton = document.createElement('button');
+  const readingInfo = document.createElement('div');
+  readingInfo.classList.add('reading-info');
+  readingInfo.style.display = 'flex';
+  readingInfo.style.flexDirection = 'column';
+  bookCover.appendChild(readingInfo);
+
+  const startDateInfo = document.createElement('div');
+  startDateInfo.classList.add('start-date-info');
+  startDateInfo.style.display = 'none';
+  readingInfo.appendChild(startDateInfo);
+
+  const startDateButton = document.createElement('button');
   startDateButton.textContent = 'Start Reading';
-  startDateButton.classList.add('start-date-button');
+  startDateButton.classList.add('start-reading-button');
   startDateButton.addEventListener('click', () => {
-    const startDate = new Date().toISOString().slice(0, 10);
-    const startDateDisplay = document.createElement('p');
-    startDateDisplay.textContent = `Started Reading: ${startDate}`;
-    bookCover.appendChild(startDateDisplay);
+    const startDate = new Date().toISOString().substring(0, 10);
+    bookCover.dataset.startDate = startDate;
+    startDateInfo.textContent = `Started: ${startDate}`;
+    startDateInfo.style.display = 'block';
+
+    finishDateButton.style.display = 'block';
+    startDateButton.style.display = 'none';
   });
-  bookCover.appendChild(startDateButton);
+
+  const finishDateInfo = document.createElement('div');
+  finishDateInfo.classList.add('finish-date-info');
+  finishDateInfo.style.display = 'none';
+  readingInfo.appendChild(finishDateInfo);
 
   const finishDateButton = document.createElement('button');
   finishDateButton.textContent = 'Finish Reading';
-  finishDateButton.classList.add('finish-date-button');
+  finishDateButton.classList.add('finish-reading-button');
   finishDateButton.addEventListener('click', () => {
-    const finishDate = new Date().toISOString().slice(0, 10);
-    const finishDateDisplay = document.createElement('p');
-    finishDateDisplay.textContent = `Finished Reading: ${finishDate}`;
-    bookCover.appendChild(finishDateDisplay);
-  });
-  bookCover.appendChild(finishDateButton);
+    const finishDate = new Date().toISOString().substring(0, 10);
+    bookCover.dataset.finishDate = finishDate;
+    finishDateInfo.textContent = `Finished: ${finishDate}`;
+    finishDateInfo.style.display = 'block';
 
-  const removeButton = document.createElement('button');
-  removeButton.textContent = 'Remove';
-  removeButton.classList.add('remove-button');
-  removeButton.addEventListener('click', () => {
+    finishDateButton.style.display = 'none';
+  });
+
+  const removeLink = document.createElement('a');
+  removeLink.href = '#';
+  removeLink.textContent = 'Remove from Library';
+  removeLink.addEventListener('click', () => {
     bookCover.remove();
     removeBookFromLibrary(bookData.id);
   });
-  bookCover.appendChild(removeButton);
-
-  bookCover.addEventListener('mouseover', () => {
-    const startDateDisplay = bookCover.querySelector('.start-date-display');
-    const finishDateDisplay = bookCover.querySelector('.finish-date-display');
-    if (startDateDisplay && finishDateDisplay) {
-      startDateDisplay.style.display = 'block';
-      finishDateDisplay.style.display = 'block';
-    }
-  });
-
-  bookCover.addEventListener('mouseout', () => {
-    const startDateDisplay = bookCover.querySelector('.start-date-display');
-    const finishDateDisplay = bookCover.querySelector('.finish-date-display');
-    if (startDateDisplay && finishDateDisplay) {
-      startDateDisplay.style.display = 'none';
-      finishDateDisplay.style.display = 'none';
-    }
-  });
+  bookCover.appendChild(removeLink);
 
   library.appendChild(bookCover);
-
+  readingInfo.appendChild(startDateButton);
+  readingInfo.appendChild(finishDateButton);
   saveBookToLibrary(bookData);
 };

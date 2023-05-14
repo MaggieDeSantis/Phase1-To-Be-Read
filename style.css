@@ -6,13 +6,15 @@ body {
 
 h1, h2 {
   text-align: center;
-  color: #b4510b;
+  color: #c07c4c;
 }
+
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
+
 #search-form {
   display: flex;
   justify-content: center;
@@ -52,11 +54,8 @@ button[type="submit"] {
 .book {
   margin: 1rem;
   text-align: center;
-}
-
-.book-cover {
-  max-width: 200px;
-  max-height: 300px;
+  max-width: 200%;
+  max-height: 300%;
 }
 
 .book img {
@@ -67,6 +66,7 @@ button[type="submit"] {
   display: flex;
   overflow-x: scroll;
   margin: 20px;
+  height: 65%;
 }
 
 .result-cover {
@@ -87,6 +87,8 @@ button[type="submit"] {
   display: flex;
   overflow-x: scroll;
   white-space: nowrap;
+  margin: auto;
+
 }
 
 table {
@@ -118,4 +120,11 @@ table {
 
 ::-webkit-scrollbar-thumb {
   background-color: #7d7171;
+}
+.reading-info {
+  font-size: 14px;
+}
+.date-container {
+  display: flex;
+  font-size: smaller;
 }
