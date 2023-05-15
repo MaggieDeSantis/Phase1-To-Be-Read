@@ -101,6 +101,7 @@ button[type="submit"]:hover {
   overflow-x: scroll;
   margin: 20px;
   height: 65%;
+ 
 }
 
 .result-cover {
@@ -149,6 +150,7 @@ table {
 }
 ::-webkit-scrollbar {
   width: 0.5em;
+  padding: 2px;
 }
 
 ::-webkit-scrollbar-track {
