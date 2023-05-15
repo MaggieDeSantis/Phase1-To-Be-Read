@@ -8,8 +8,9 @@ h1, h2 {
   text-align: center;
   color: #c07c4c;
 }
-h3 {
+h4 {
   margin: 0px;
+  text-align: center;
 }
 .header-image {
   width: 100%;
@@ -25,12 +26,14 @@ h3 {
 }
 
 button{
-  background-color:#d27d40;
+  background-color:#d19f7b;
   border: none;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .img {
   max-height: 150px;
+  
 }
 #search-form {
   display: flex;
@@ -106,6 +109,7 @@ button[type="submit"]:hover {
 }
 
 #library {
+  padding: 25px;
   width: 80%;
   margin: auto;
 }
@@ -120,6 +124,7 @@ button[type="submit"]:hover {
   white-space: nowrap;
   margin: auto;
   height: fit-content;
+  align-items:baseline;
 
 }
 
@@ -134,7 +139,7 @@ table {
 }
 
 .add-to-library {
-  padding: 10px;
+  padding: 25px;
   background-color: #b4510b;
   color: #f2984e;
   border: none;
@@ -151,7 +156,7 @@ table {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #b4510b;
+  background-color: #cd6025;
 }
 .reading-info {
   font-size: 14px;
@@ -160,11 +165,7 @@ table {
   display: flex;
   font-size: smaller;
 }
-.start-reading-button {
-  background-color: #d27d40;
-  border-width: thin;
-  border-color: #592602;
-}
+
 .remove-button {
   background-color: #decaa6;
 }

@@ -29,7 +29,6 @@ form.addEventListener('submit', (e) => {
       console.error(error);
     });
 });
-
 // Function to display book results
 
 const displayResults = (books) => {
@@ -94,19 +93,19 @@ const displayBook = (book) => {
   bookDiv.appendChild(description);
   
   
-  const hideDescLink = document.createElement('a');
-  hideDescLink.textContent = 'Hide';
-  hideDescLink.href = '#';
-  hideDescLink.addEventListener('click', (e) => {
-    e.preventDefault();
+  const hideDescButton = document.createElement('button');
+  hideDescButton.textContent = 'Hide';
+  hideDescButton.type = 'button';
+  hideDescButton.addEventListener('click', () => {
     bookDescription.textContent = ' ';
   });
  
   bookDiv.appendChild(addToLibraryButton);
-  bookDiv.appendChild(hideDescLink);
+ 
 
   bookDescription.textContent = '';
-  bookDescription.appendChild(bookDiv);
+  bookDescription.appendChild(bookDiv); 
+  bookDiv.appendChild(hideDescButton);
 };
 
 resultsSection.addEventListener('click', (e) => {
@@ -148,7 +147,7 @@ const addBookToLibrary = (bookData) => {
   bookImage.alt = bookImageAlt;
   bookCover.appendChild(bookImage);
 
-  const bookTitle = document.createElement('h3');
+  const bookTitle = document.createElement('h4');
   bookTitle.textContent = bookData.volumeInfo.title;
   bookCover.appendChild(bookTitle);
 
